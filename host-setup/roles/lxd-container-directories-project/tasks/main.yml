@@ -29,18 +29,8 @@
 
 ## Component directories
 
-- name: Create a directory to mount in <COMPONENT> container
+- name: Create a directory to mount in webserver and website-provisioner containers
   file:
-    path: "/var/containers/{{ project_id }}/<COMPONENT>"
+    path: "/var/containers/{{ project_id }}/website"
     state: directory
     mode: '0755'
-
-
-## Create directory for project ABC container
-
-# Example
-# - name: Create a directory for <ABC> container mounts
-#   file:
-#     path: "/var/containers/{{ project_id }}<COMPONENT>/<ABC>"
-#     state: directory
-#     mode: '0755'
