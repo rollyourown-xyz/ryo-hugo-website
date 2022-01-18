@@ -1,0 +1,46 @@
+---
+## The generic directory /var/containers/{{ project_id }}
+## for LXD container persistent storage must be created
+## Further project-specific container directories should be
+## added here
+## -----------------------------------------------------------
+
+## Directories for project-specific LXD container persistent storage
+## -----------------------------------------------------------------
+
+- name: Create a directory to mount in project containers
+  file:
+    path: "/var/containers/{{ project_id }}"
+    state: directory
+    mode: '0755'
+
+
+## Copy README into top-level directory for project containers
+
+- name: Copy README
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: "/var/containers/{{ project_id }}/README"
+    src: README
+    force: yes
+
+
+## Component directories
+
+- name: Create a directory to mount in <COMPONENT> container
+  file:
+    path: "/var/containers/{{ project_id }}/<COMPONENT>"
+    state: directory
+    mode: '0755'
+
+
+## Create directory for project ABC container
+
+# Example
+# - name: Create a directory for <ABC> container mounts
+#   file:
+#     path: "/var/containers/{{ project_id }}<COMPONENT>/<ABC>"
+#     state: directory
+#     mode: '0755'
