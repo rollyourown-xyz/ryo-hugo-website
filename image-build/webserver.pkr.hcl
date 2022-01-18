@@ -1,7 +1,8 @@
-#---------------------------------------------------------------------------
-# Packer template for building LXD container image for <A PROJECT COMPONENT>
+#--------------------------------------------------------------------------
+# Packer template for building LXD container image for the webserver 
+# component of the ryo-hugo-website project
 # Ubuntu minimal images are used as base images
-#---------------------------------------------------------------------------
+#--------------------------------------------------------------------------
 
 ## Input variables
 ##
@@ -18,19 +19,12 @@ variable "version" {
   type        = string
 }
 
-# Other input variables
-# Here, grav_version as an example
-variable "grav_version" {
-  description = "Mandatory: The grav version to use in the image build."
-  type        = string
-}
-
 ## Local configuration variables
 ##
 
 # Name for the container for which the image is to be built
 locals {
-  service_name = "<PROJECT COMPONENT NAME>"
+  service_name = "hugo-webserver"
 }
 
 # Variables from configuration files
@@ -40,8 +34,6 @@ locals {
 }
 
 ## Parameters for the build process
-## Here, grav_version as an example
-##
 
 locals {
   build_image_os      = "ubuntu-minimal"
@@ -50,8 +42,8 @@ locals {
   build_container_name = "packer-lxd-build"
 
   build_inventory_file = "${abspath(path.root)}/playbooks/inventory.yml"
-  build_playbook_file  = "${abspath(path.root)}/playbooks/provision-TEMPLATE.yml"
-  build_extra_vars     = "host_id=${var.host_id} grav_version=${var.grav_version}"
+  build_playbook_file  = "${abspath(path.root)}/playbooks/provision-webserver.yml"
+  build_extra_vars     = "host_id=${var.host_id}"
 }
 
 ## Computed local variables
