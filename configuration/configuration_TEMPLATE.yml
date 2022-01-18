@@ -11,18 +11,23 @@
 
 # The project ID must be 15 characters or less and should be unique amongst
 # projects
-project_id: <PROJECT ID>
+project_id: ryo-hugo-website
 
-## The following will contain settings specific to the project
-## THE FOLLOWING ARE EXAMPLES
-
-# Set the domain to be used for the project. The DNS A record for the project's 
-# domain must be set to point to the public IPv4 address of your host server
+# Set the domain to be used for the project. This will be the address under which
+# your hugo website will be reachable -- E.g. example.com or blog.example.com
+# The DNS A record for the project's domain must be set to point to the public
+# IPv4 address of your host server
 project_domain_name: <DOMAIN>
 
-# Enter a username for the administrator of this project, 
-project_admin_username: <USERNAME>
+# Set the (sub-)domain to be used for the webhooks to trigger your Hugo website to
+# pull content from your Git repository server (after updates) -- E.g. hooks.example.com
+# The DNS A record for this hooks domain must be set to point to the public
+# IPv4 address of your host server
+project_hooks_domain_name: <SUBDOMAIN>.<DOMAIN>
 
-# Enter an email address for the administrator of this project, 
-# this will be used for letsencrypt certificates
-project_admin_email: <EMAIL ADDRESS>
+
+## Others - TBD
+# project_website_title <- see hugo config
+# project_scaffold_repository: 
+# project_content_repository: 
+# project_theme_repository: https://github.com/theNewDynamic/gohugo-theme-ananke <- default, but any public hugo theme can be used
