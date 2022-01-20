@@ -24,7 +24,7 @@ variable "version" {
 
 # Name for the container for which the image is to be built
 locals {
-  service_name = "hugo-webserver"
+  service_name = "hugo-website-webserver"
 }
 
 # Variables from configuration files
