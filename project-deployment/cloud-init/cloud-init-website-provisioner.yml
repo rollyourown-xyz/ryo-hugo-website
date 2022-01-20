@@ -1,0 +1,5 @@
+#cloud-config
+package_upgrade: false
+runcmd:
+  # Run website deployment script
+  - /usr/local/bin/deploy-website.sh
