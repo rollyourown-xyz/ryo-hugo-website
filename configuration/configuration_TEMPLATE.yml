@@ -25,9 +25,53 @@ project_domain_name: <DOMAIN>
 # IPv4 address of your host server
 project_hooks_domain_name: <SUBDOMAIN>.<DOMAIN>
 
+# Enter an email address for the administrator of this project, 
+# this will be used for letsencrypt certificates
+project_admin_email: <EMAIL ADDRESS>
 
-## Others - TBD
-# project_website_title <- see hugo config
-# project_scaffold_repository: 
-# project_content_repository: 
-# project_theme_repository: https://github.com/theNewDynamic/gohugo-theme-ananke <- default, but any public hugo theme can be used
+# Set the URL to the repository for the content of your hugo website
+# See https://rollyourown.xyz/rollyourown/projects/single_server_projects/ryo-hugo-website/ for details
+project_content_repository: https://<REPOSITORY-SERVER>/<PATH-TO-CONTENT-REPOSITORY>
+
+# Set the URL to the repository for the scaffold for your hugo website
+# The project_scaffold_repository variable is pre-populated with the ryo-hugo-website-scaffold-template
+# repository. This can be replaced (also at a later date) with your own scaffold repository if you plan
+# to make changes to the scaffold for your hugo website
+project_scaffold_repository: https://github.com/rollyourown-xyz/ryo-hugo-website-scaffold-template
+
+# Set the URL to the repositories for the theme for the hugo website 
+# The project_theme_repository variable is pre-populated with a theme used in the official Hugo Quick Start
+# guide: https://gohugo.io/getting-started/quick-start/
+# This can be replaced with a different publicly-available theme - see, for example https://themes.gohugo.io/
+# -- or your own theme repository (which you may have cloned from a publicly-available theme as starting point)
+project_theme_repository: https://github.com/theNewDynamic/gohugo-theme-ananke
+
+# Set the name of the theme for the hugo website
+# The project_hugo_theme_name variable is pre-populated for the ananke theme used in the official Hugo Quick Start
+# guide: https://gohugo.io/getting-started/quick-start/
+# This setting will need to be changed if you choose a different theme repository above
+# NOTE: if you change this setting, then you will also need to change the "theme" parameter in the config.toml
+# file at the toplevel of the content repository to match this setting
+project_hugo_theme_name: ananke
+
+# Set the branches to use for the scaffold, content and theme repositories
+# !!! Only change these settings if you have specific needs to use a different branch to the default
+project_hugo_content_repository_branch: main
+project_hugo_scaffold_repository_branch: main
+project_hugo_theme_repository_branch: master
+
+# Set/change the following settings if one or more of the scaffold, content or theme respositories is not public
+# In case of a private repository, change to "true" and add a username and access token
+# See https://rollyourown.xyz/rollyourown/projects/single_server_projects/ryo-hugo-website/ for details
+
+project_hugo_scaffold_private: false
+project_hugo_scaffold_user: <USERNAME>
+project_hugo_scaffold_token: <ACCESS_TOKEN>
+
+project_hugo_content_private: false
+project_hugo_content_user: <USERNAME>
+project_hugo_content_token: <ACCESS_TOKEN>
+
+project_hugo_theme_private: false
+project_hugo_theme_user: <USERNAME>
+project_hugo_theme_token: <ACCESS_TOKEN>
