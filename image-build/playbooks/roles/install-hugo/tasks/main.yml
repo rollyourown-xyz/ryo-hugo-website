@@ -1,0 +1,11 @@
+---
+# Download and unarchive hugo archive (version {{ hugo_version }})
+#
+- name: Download and unarchive hugo v-{{ hugo_version }}
+  unarchive:
+    owner: root
+    group: root
+    mode: 0755
+    src: https://github.com/gohugoio/hugo/releases/download/v{{ hugo_version }}/hugo_extended_{{ hugo_version }}_Linux-64bit.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
