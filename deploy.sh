@@ -4,7 +4,7 @@
 # This script deploys the modules required for the project and deploys the project components 
 
 # Required modules (space-separated list in the form "module_1 module_2 module_3")
-MODULES="<MODULE_1> <MODULE_1> <MODULE_1>"
+MODULES="ryo-ingress-proxy"
 
 
 # Help and error messages
