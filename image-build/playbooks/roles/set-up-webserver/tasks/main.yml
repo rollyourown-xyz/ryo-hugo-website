@@ -1,0 +1,87 @@
+---
+
+# Add an empty site directory as mount point
+#
+- name: Add an empty site directory
+  file:
+    mode: 0775
+    owner: www-data
+    group: www-data
+    path: "/var/www/site"
+    state: directory
+
+
+# Copy nginx config file
+#
+- name: Copy the nginx config file
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/nginx/nginx.conf
+    src: nginx.conf
+    force: yes
+
+
+# Copy the mime.types file
+#
+- name: Copy the mime.types file
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/nginx/mime.types
+    src: mime.types
+    force: yes
+
+
+# Fix against httpoxy vulnerability
+# Add line `fastcgi_param HTTP_PROXY "";` to /etc/nginx/fastcgi.conf
+#
+- name: Fix against httpoxy vulnerability 
+  lineinfile:
+    dest: /etc/nginx/fastcgi.conf
+    regexp: '^fastcgi_param HTTP_PROXY'
+    line: 'fastcgi_param HTTP_PROXY "";'
+    state: present
+
+
+# Copy NGINX sites-available file
+#
+- name: Copy nginx sites-available file
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: "/etc/nginx/sites-available/site"
+    src: nginx-sites-available
+    force: yes
+
+
+# Enable site in sites-enabled directory
+#
+- name: Enable site in sites-enabled directory
+  file:
+    src: "/etc/nginx/sites-available/site"
+    dest: "/etc/nginx/sites-enabled/site"
+    state: link
+
+
+# Disable the nginx default site
+#
+- name: Disable the nginx default site
+  file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+
+
+# Copy hugo-website-webserver-service consul service configuration file
+#
+- name: Copy hugo-website-webserver-service consul service configuration file
+  copy:
+    mode: 0640
+    owner: consul
+    group: consul
+    dest: /etc/consul.d/hugo-website-webserver-services.hcl
+    src: hugo-website-webserver-services.hcl
+    force: yes

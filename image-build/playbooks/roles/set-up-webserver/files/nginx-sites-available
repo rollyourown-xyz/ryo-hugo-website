@@ -1,0 +1,24 @@
+server {
+    listen 80;
+
+    root /var/www/site;
+
+    index index.html;
+    
+    error_page 401 403 404 /404.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Media
+    location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc)$ {
+        expires 7d;
+    }
+
+    # CSS and js
+    location ~* \.(css|js)$ {
+        expires 1d;
+    }
+
+}
