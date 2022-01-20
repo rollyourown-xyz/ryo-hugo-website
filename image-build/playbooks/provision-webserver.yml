@@ -1,5 +1,5 @@
 ---
-- name: Provision <PROJECT COMPONENT NAME> container image
+- name: Provision hugo-website-webserver container image
   hosts: packer
 
   vars_files:
