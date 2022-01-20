@@ -22,13 +22,15 @@ locals {
 
 # Basic project variables
 locals {
-  project_id          = yamldecode(file(local.project_configuration))["project_id"]
-  ## example_variable = yamldecode(file(local.project_configuration))["example"]
+  project_id                = yamldecode(file(local.project_configuration))["project_id"]
+  project_domain_name       = yamldecode(file(local.project_configuration))["project_domain_name"]
+  project_hooks_domain_name = yamldecode(file(local.project_configuration))["project_hooks_domain_name"]
+  project_admin_email       = yamldecode(file(local.project_configuration))["project_admin_email"]
 }
 
 # LXD variables
 locals {
-  lxd_host_control_ipv4_address  = yamldecode(file(local.host_configuration))["host_control_ip"]
+  lxd_host_control_ipv4_address = yamldecode(file(local.host_configuration))["host_control_ip"]
   lxd_host_network_part         = yamldecode(file(local.host_configuration))["lxd_host_network_part"]
 }
 
