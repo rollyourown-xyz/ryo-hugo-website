@@ -64,13 +64,13 @@ project_hugo_theme_repository_branch: master
 # In case of a private repository, change to "true" and add a username and access token
 # See https://rollyourown.xyz/rollyourown/projects/single_server_projects/ryo-hugo-website/ for details
 
-project_hugo_scaffold_private: false
-project_hugo_scaffold_user: <USERNAME>
-project_hugo_scaffold_token: <ACCESS_TOKEN>
-
 project_hugo_content_private: false
 project_hugo_content_user: <USERNAME>
 project_hugo_content_token: <ACCESS_TOKEN>
+
+project_hugo_scaffold_private: false
+project_hugo_scaffold_user: <USERNAME>
+project_hugo_scaffold_token: <ACCESS_TOKEN>
 
 project_hugo_theme_private: false
 project_hugo_theme_user: <USERNAME>
