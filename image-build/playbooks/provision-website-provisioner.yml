@@ -1,5 +1,5 @@
 ---
-- name: Provision <PROJECT COMPONENT NAME> container image
+- name: Provision hugo-website-provisioner container image
   hosts: packer
 
   vars_files:
@@ -20,3 +20,4 @@
     - role: set-up-firewall
     - role: set-up-consul
     - role: set-up-website-provisioner
+    - role: set-up-webhook
