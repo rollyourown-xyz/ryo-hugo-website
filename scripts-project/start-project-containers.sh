@@ -37,17 +37,17 @@ then
   errorMessage
 fi
 
-# Start project containers
+Start project containers
 
-# echo ""
-# echo "Starting project container..."
+echo ""
+echo "Starting project container..."
 
-# #
-# # Project-specific start containers here
-# #
-# echo "...starting <CONTAINER> container"
-# lxc start "$hostname":<CONTAINER>
-# echo ""
+echo "...starting hugo-website-webserver container"
+lxc start "$hostname":hugo-website-webserver
+echo ""
+echo "...starting hugo-website-provisioner container"
+lxc start "$hostname":hugo-website-provisioner
+echo ""
 
-# echo "Project container started"
-# echo ""
+echo "Project container started"
+echo ""

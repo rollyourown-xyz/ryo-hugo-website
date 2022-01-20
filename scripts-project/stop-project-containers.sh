@@ -37,17 +37,17 @@ then
   errorMessage
 fi
 
-# Stop project containers
+Stop project containers
 
-# echo ""
-# echo "Stopping project container..."
+echo ""
+echo "Stopping project container..."
 
-# #
-# # Project-specific stop containers here
-# #
-# echo "...stopping <CONTAINER> container"
-# lxc stop "$hostname":<CONTAINER>
-# echo ""
+echo "...stopping hugo-website-webserver container"
+lxc stop "$hostname":hugo-website-webserver
+echo ""
+echo "...stopping hugo-website-provisioner container"
+lxc stop "$hostname":hugo-website-provisioner
+echo ""
 
-# echo "Project container started"
-# echo ""
+echo "Project container started"
+echo ""

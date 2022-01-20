@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Default software package versions
-# Add software package versions here, for example grav
-grav_version="1.7.25"
+hugo_version="0.92.0"
+webhook_version="2.8.0"
+
 
 # Script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -44,10 +45,14 @@ then
 fi
 
 
-# Project-specific image builds here..., for example
-# echo ""
-# echo "Building webserver image on "$hostname""
-# echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"grav_version=$grav_version\" -var \"version=$version\" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl"
-# packer build -var "host_id="$hostname"" -var "grav_version="$grav_version"" -var "version="$version"" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl
+echo ""
+echo "Building hugo-website-webserver image on "$hostname""
+echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"grav_version=$grav_version\" -var \"version=$version\" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl"
+packer build -var "host_id="$hostname"" -var "version="$version"" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl
+
+echo ""
+echo "Building hugo-website-provisioner image on "$hostname""
+echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"hugo_version=$hugo_version\" -var \"webhook_version=$webhook_version\" -var \"version=$version\" "$SCRIPT_DIR"/../image-build/website-provisioner.pkr.hcl"
+packer build -var "host_id="$hostname"" -var "hugo_version="$hugo_version"" -var "webhook_version="$webhook_version"" -var "version="$version"" "$SCRIPT_DIR"/../image-build/website-provisioner.pkr.hcl
 
 echo "Completed"
