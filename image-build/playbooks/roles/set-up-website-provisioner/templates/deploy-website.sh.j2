@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Enter the hugo/deploy directory
+cd /var/hugo/deploy
+
+# Clone the hugo-scaffold repository into the /var/hugo/deploy directory
+{% if project_hugo_scaffold_private %}git clone -b {{ project_hugo_scaffold_repository_branch }} https://{{ project_hugo_scaffold_user }}:{{ project_hugo_scaffold_token }}@{{ project_scaffold_repository }} /var/hugo/deploy
+{% else %}git clone -b {{ project_hugo_scaffold_repository_branch }} https://{{ project_scaffold_repository }} /var/hugo/deploy{% endif %}
+
+# Add the hugo-content repository as a submodule
+{% if project_hugo_content_private %}git submodule add -b {{ project_hugo_content_repository_branch }} https://{{ project_hugo_content_user }}:{{ project_hugo_content_token }}@{{ project_content_repository }} /var/hugo/deploy/content
+{% else %}git submodule add -b {{ project_hugo_content_repository_branch }} https://{{ project_content_repository }} /var/hugo/deploy/content{% endif %}
+
+# Add the hugo-theme repository as a submodule
+{% if project_hugo_content_private %}git submodule add -b {{ project_hugo_theme_repository_branch }} https://{{ project_hugo_theme_user }}:{{ project_hugo_theme_token }}@{{ project_theme_repository }} /var/hugo/deploy/themes/{{ project_hugo_theme_name }}
+{% else %}git submodule add -b {{ project_hugo_theme_repository_branch }} https://{{ project_theme_repository }} /var/hugo/deploy/themes/{{ project_hugo_theme_name }}{% endif %}
+
+# Build the site with hugo and write to the /var/hugo/staging directory
+/usr/local/bin/hugo --config content/config.toml --destination /var/hugo/staging --minify --ignoreCache --gc
+
+# Change ownsership of all files in /var/hugo/staging to www-data:www-data
+chown -R www-data:www-data /var/hugo/staging/*
+
+# rsync the /var/hugo/staging directory to the /var/hugo/public directory
+rsync -a --delete /var/hugo/staging/ /var/hugo/public/

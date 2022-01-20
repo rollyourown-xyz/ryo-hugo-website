@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Enter the hugo/deploy directory
+cd /var/hugo/deploy
+
+# Pull the hugo-scaffold repository
+git pull origin {{ project_hugo_scaffold_repository_branch }}
+
+# Enter the hugo/deploy/content directory
+cd /var/hugo/deploy/content
+
+# Pull the hugo-content repository
+git pull origin {{ project_hugo_content_repository_branch }}
+
+# Enter the hugo/deploy/themes/{{ hugo_theme_name }} directory
+cd /var/hugo/deploy/themes/{{ project_hugo_theme_name }}
+
+# Pull the hugo-theme repository
+git pull origin {{ project_hugo_theme_repository_branch }}
+
+# Enter the hugo/deploy directory
+cd /var/hugo/deploy
+
+# Empty the /var/hugo/staging directory
+rm -R /var/hugo/staging/*
+
+# Build the site with hugo and write to the /var/hugo/staging directory
+/usr/local/bin/hugo --config content/config.toml --destination /var/hugo/staging --minify --ignoreCache --gc
+
+# Change ownsership of all files in /var/hugo/staging to www-data:www-data
+chown -R www-data:www-data /var/hugo/staging/*
+
+# rsync the /var/hugo/staging directory to the /var/hugo/public directory
+rsync -a --delete /var/hugo/staging/ /var/hugo/public/

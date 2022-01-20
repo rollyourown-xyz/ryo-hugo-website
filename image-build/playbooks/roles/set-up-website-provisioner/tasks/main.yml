@@ -1,0 +1,72 @@
+---
+
+# Create hugo bootstrap directory
+# 
+- name: Create hugo bootstrap directory
+  file:
+    path: /var/hugo/bootstrap
+    state: directory
+    mode: '0755'
+
+
+# Create hugo deployment directory
+# 
+- name: Create hugo deployment directory
+  file:
+    path: /var/hugo/deploy
+    state: directory
+    mode: '0755'
+
+
+# Create hugo staging directory
+# 
+- name: Create hugo staging directory
+  file:
+    path: /var/hugo/staging
+    state: directory
+    mode: '0755'
+
+
+# Create website output directory
+# 
+- name: Create website output directory
+  file:
+    path: /var/hugo/public
+    state: directory
+    mode: '0755'
+
+
+# Copy deploy script
+#
+- name: Copy deploy script
+  template:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/deploy-website.sh
+    src: deploy-website.sh.j2
+    force: yes
+
+
+# Copy redeploy script
+#
+- name: Copy redeploy script
+  template:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/redeploy-website.sh
+    src: redeploy-website.sh.j2
+    force: yes
+
+
+# Copy hugo-website-provisioner-services consul service configuration file
+#
+- name: Copy hugo-website-provisioner-services consul service configuration file
+  copy:
+    mode: 0640
+    owner: consul
+    group: consul
+    dest: /etc/consul.d/hugo-website-provisioner-services.hcl
+    src: hugo-website-provisioner-services.hcl
+    force: yes
