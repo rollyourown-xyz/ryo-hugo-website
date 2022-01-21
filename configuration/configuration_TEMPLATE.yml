@@ -29,22 +29,22 @@ project_hooks_domain_name: <SUBDOMAIN>.<DOMAIN>
 # this will be used for letsencrypt certificates
 project_admin_email: <EMAIL ADDRESS>
 
-# Set the URL to the repository for the content of your hugo website
+# Set the URL to the repository for the content of your hugo website WITHOUT https://
 # See https://rollyourown.xyz/rollyourown/projects/single_server_projects/ryo-hugo-website/ for details
-project_content_repository: https://<REPOSITORY-SERVER>/<PATH-TO-CONTENT-REPOSITORY>
+project_content_repository: <REPOSITORY-SERVER>/<PATH-TO-CONTENT-REPOSITORY>
 
-# Set the URL to the repository for the scaffold for your hugo website
+# Set the URL to the repository for the scaffold for your hugo website WITHOUT https://
 # The project_scaffold_repository variable is pre-populated with the ryo-hugo-website-scaffold-template
 # repository. This can be replaced (also at a later date) with your own scaffold repository if you plan
 # to make changes to the scaffold for your hugo website
-project_scaffold_repository: https://github.com/rollyourown-xyz/ryo-hugo-website-scaffold-template
+project_scaffold_repository: github.com/rollyourown-xyz/ryo-hugo-website-scaffold-template
 
-# Set the URL to the repositories for the theme for the hugo website 
+# Set the URL to the repositories for the theme for the hugo website WITHOUT https://
 # The project_theme_repository variable is pre-populated with a theme used in the official Hugo Quick Start
 # guide: https://gohugo.io/getting-started/quick-start/
 # This can be replaced with a different publicly-available theme - see, for example https://themes.gohugo.io/
 # -- or your own theme repository (which you may have cloned from a publicly-available theme as starting point)
-project_theme_repository: https://github.com/theNewDynamic/gohugo-theme-ananke
+project_theme_repository: github.com/theNewDynamic/gohugo-theme-ananke
 
 # Set the name of the theme for the hugo website
 # The project_hugo_theme_name variable is pre-populated for the ananke theme used in the official Hugo Quick Start
@@ -59,6 +59,11 @@ project_hugo_theme_name: ananke
 project_hugo_content_repository_branch: main
 project_hugo_scaffold_repository_branch: main
 project_hugo_theme_repository_branch: master
+
+# Set a Webhook Secret token for signing webhook payload
+# This secret token needs to be provided to the Git repository server (e.g. Codeberg or GitHub) when
+# setting up the webhook in your repository triggering a re-deployment of the website content
+project_webhook_secret: <WEBHOOK_SECRET>
 
 # Set/change the following settings if one or more of the scaffold, content or theme respositories is not public
 # In case of a private repository, change to "true" and add a username and access token
