@@ -12,7 +12,7 @@
 # Copy webhook configuration
 #
 - name: Copy webhook configuration
-  template::
+  template:
     mode: 0660
     owner: root
     group: root
