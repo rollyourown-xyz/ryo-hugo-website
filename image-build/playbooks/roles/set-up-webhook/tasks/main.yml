@@ -12,12 +12,12 @@
 # Copy webhook configuration
 #
 - name: Copy webhook configuration
-  copy:
+  template::
     mode: 0660
     owner: root
     group: root
     dest: /usr/local/bin/hooks.yaml
-    src: hooks.yaml
+    src: hooks.yaml.j2
     force: yes
 
 
