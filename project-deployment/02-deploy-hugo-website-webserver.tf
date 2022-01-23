@@ -1,3 +1,16 @@
+# Deploy certbot configuration for project domain
+#################################################
+
+module "deploy-hugo-website-webserver-cert-domains" {
+  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-cert-domains"
+
+  certificate_domains = {
+    domain_1 = {domain = local.project_domain_name, admin_email = local.project_admin_email},
+    domain_2 = {domain = join("", [ "www.", local.project_domain_name]), admin_email = local.project_admin_email}
+  }
+}
+
+
 # Deploy Hugo website webserver
 ###############################
 
@@ -37,24 +50,15 @@ resource "lxd_container" "hugo-website-webserver" {
   }
 }
 
-# Deploy certbot configuration for project domain
-#################################################
-
-module "deploy-hugo-website-webserver-cert-domains" {
-  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-cert-domains"
-
-  certificate_domains = {
-    domain_1 = {domain = local.project_domain_name, admin_email = local.project_admin_email},
-    domain_2 = {domain = join("", [ "www.", local.project_domain_name]), admin_email = local.project_admin_email}
-  }
-}
-
 
 # Deploy Ingress Proxy configuration
 ####################################
 
 module "deploy-hugo-website-webserver-ingress-proxy-backend-service" {
   source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-backend-services"
+  
+  depends_on = [ lxd_container.hugo-website-webserver ]
+  
   non_ssl_backend_services = [ "hugo-website-webserver" ]
 }
 
