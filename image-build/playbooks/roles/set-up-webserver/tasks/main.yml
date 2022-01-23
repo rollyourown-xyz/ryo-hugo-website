@@ -46,16 +46,30 @@
     state: present
 
 
-# Copy NGINX sites-available file
+# Copy NGINX sites-available file (for public IdP mode)
 #
-- name: Copy nginx sites-available file
+- name: Copy nginx sites-available file (for public IdP mode)
   copy:
     mode: 0644
     owner: root
     group: root
     dest: "/etc/nginx/sites-available/site"
-    src: nginx-sites-available
+    src: nginx-sites-available-public
     force: yes
+  when: project_idp_mode == "public"
+
+
+# Copy NGINX sites-available file (for gitea IdP mode)
+#
+- name: Copy nginx sites-available file (for gitea IdP mode)
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: "/etc/nginx/sites-available/site"
+    src: nginx-sites-available-gitea
+    force: yes
+  when: project_idp_mode == "gitea"
 
 
 # Enable site in sites-enabled directory

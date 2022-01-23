@@ -1,0 +1,39 @@
+## Listening Address Settings
+http_address = "0.0.0.0:80"
+https_address = "0.0.0.0:443"
+
+## Reverse Proxy Settings
+reverse_proxy = true
+real_client_ip_header = "X-Forwarded-For"
+
+## Provider Settings of Gitea as IdP
+# skip_provider_button = false or true ???
+provider = "github"
+provider_display_name = "rollyourown-xyz"
+redirect_url = "https://{{ project_domain_name }}/oauth2/callback"
+login_url = "https://{{ project_idp_gitea_domain_name }}/login/oauth/authorize"
+redeem_url = "https://{{ project_idp_gitea_domain_name }}/login/oauth/access_token"
+validate_url = "https://{{ project_idp_gitea_domain_name }}/api/v1"
+client_id = "{{ project_idp_gitea_client_id }}"
+client_secret = "{{ project_idp_gitea_client_secret }}"
+
+# Upstream Settings
+upstreams = [
+    "http://127.0.0.1:8080/"
+]
+pass_basic_auth = true
+pass_user_headers = true
+pass_host_header = true
+pass_access_token = false
+
+## Session storage
+session_store_type = "cookie"
+
+## Cookie Settings
+cookie_name = "_oauth2_proxy"
+cookie_secret = "{{ oauth2_proxy_cookie_secret }}"
+cookie_secure = true
+cookie_httponly = true
+# cookie_domains = ""
+# cookie_expire = "168h"
+# cookie_refresh = ""

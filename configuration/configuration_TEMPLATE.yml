@@ -80,3 +80,42 @@ project_hugo_scaffold_token: <ACCESS_TOKEN>
 project_hugo_theme_private: false
 project_hugo_theme_user: <USERNAME>
 project_hugo_theme_token: <ACCESS_TOKEN>
+
+
+#-----------------------
+# Optional Configuration
+#-----------------------
+
+# Single Sign-On mode
+#--------------------
+
+# Identity provider selection for single sign-on (SSO)
+# Change this parameter to select an external Identity and Access Management system for website users.
+# Depending on the choice here, add the respective variable configuration below.
+# This variable **must** be set to one of the following values. Currently supported are:
+#   - public   - no external IAM will be used. No user login is used to access the website
+#   - gitea    - a Gitea server will be used for IAM. User accounts are added to the Gitea
+#                server. Website users are authenticated via the Gitea server login.
+#                The ryo-gitea project should be deployed to the host server **before**
+#                deploying this project
+project_idp_mode: public
+
+
+# Single Sign-On - public mode
+#---------------------------------
+
+# There are no specific configuration parameters for this mode
+
+
+# Single Sign-On - gitea mode
+#----------------------------
+
+# Set the Gitea server domain to be used for the project - for example git.{{project_domain_name}}
+# This should be the domain configured in the ryo-gitea configuration
+project_idp_gitea_domain_name: <SUBDOMAIN>.<DOMAIN>
+
+# Add an OAuth2 application from the Gitea administrator account
+# (configured in the ryo-gitea project)
+# Add the Client ID and Client Secret provided by Gitea during this process here
+project_idp_gitea_client_id: <CLIENT-ID>
+project_idp_gitea_client_secret: <CLIENT-SECRET>

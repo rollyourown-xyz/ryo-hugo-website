@@ -1,0 +1,34 @@
+---
+# Download and unarchive oauth2-proxy archive (version {{ oauth2_proxy_version }})
+#
+- name: Download and unarchive hugo v-{{ oauth2_proxy_version }}
+  unarchive:
+    owner: root
+    group: root
+    mode: 0755
+    src: https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v{{ oauth2_proxy_version }}/oauth2-proxy-v{{ oauth2_proxy_version }}.linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+  when: not project_idp_mode == "public"
+
+
+# Copy oauth2-proxy binary to /usr/local/bin/
+#
+- name: Copy oauth2-proxy binary to /usr/local/bin/
+  copy:
+    owner: root
+    group: root
+    mode: 0755
+    src: /usr/local/bin/oauth2-proxy-v{{ oauth2_proxy_version }}.linux-amd64/oauth2-proxy
+    dest: /usr/local/bin/oauth2-proxy
+    remote_src: yes
+  when: not project_idp_mode == "public"
+
+
+# Delete unarchived oauth2-proxy directory
+#
+- name: Delete unarchived oauth2-proxy directory
+  file:
+    path: /usr/local/bin/oauth2-proxy-v{{ oauth2_proxy_version }}.linux-amd64
+    state: absent
+  when: not project_idp_mode == "public"

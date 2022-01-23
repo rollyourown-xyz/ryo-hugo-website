@@ -13,6 +13,8 @@
     - role: install-iptables
     - role: install-consul
     - role: install-nginx
+    - role: install-oauth2-proxy
     - role: set-up-firewall
     - role: set-up-consul
     - role: set-up-webserver
+    - role: set-up-oauth2-proxy

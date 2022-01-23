@@ -1,0 +1,122 @@
+---
+
+# Check existence of a previously generated oauth2-proxy cookie secret
+#
+- name: Check existence of a previously generated oauth2-proxy cookie secret
+  delegate_to: localhost
+  stat:
+    path: "{{ playbook_dir }}/../../configuration/oauth2_proxy_cookie_secret_{{ host_id }}.yml"
+  register: oauth2_proxy_cookie_secret_file
+  when: not project_idp_mode == "public"
+
+
+# Load the oauth2-proxy cookie secret from previously created file (if previously generated)
+#
+- name: Load the oauth2-proxy cookie secret from previously created file
+  include_vars:
+    file: "{{ playbook_dir }}/../../configuration/oauth2_proxy_cookie_secret_{{ host_id }}.yml"
+  when:
+    - not project_idp_mode == "public"
+    - oauth2_proxy_cookie_secret_file.stat.exists
+
+
+# Generate a random string as oauth2-proxy cookie secret (if not previously generated)
+#
+- name: Generate a random string as oauth2-proxy cookie secret
+  shell: "cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1 | base64"
+  register: oauth2_proxy_cookie_secret_stdout
+  when:
+    - not project_idp_mode == "public"
+    - not oauth2_proxy_cookie_secret_file.stat.exists
+
+
+# Assign the oauth2-proxy cookie secret to the variable oauth2_proxy_cookie_secret (if not previously generated)
+#
+- name: Assign the oauth2-proxy cookie secret to the variable oauth2_proxy_cookie_secret
+  set_fact:
+    oauth2_proxy_cookie_secret: "{{ oauth2_proxy_cookie_secret_stdout.stdout }}"
+  when:
+    - not project_idp_mode == "public"
+    - not oauth2_proxy_cookie_secret_file.stat.exists
+
+
+# Write the oauth2-proxy cookie secret to a file in the module configuration directory on the local machine (if not previously generated)
+#
+- name: Write the oauth2-proxy cookie secret to a file in the module configuration directory
+  delegate_to: localhost
+  template:
+    mode: 0640
+    owner: "{{ local_non_root_user }}"
+    group: "{{ local_non_root_user }}"
+    dest: "{{ playbook_dir }}/../../configuration/oauth2_proxy_cookie_secret_{{ host_id }}.yml"
+    src: oauth2_proxy_cookie_secret.yml.j2
+    force: yes
+    backup: yes
+  when:
+    - not project_idp_mode == "public"
+    - not oauth2_proxy_cookie_secret_file.stat.exists
+
+
+# Copy oauth2-proxy-gitea configuration file (for gitea IAM mode)
+#
+- name: Copy oauth2-proxy configuration (for gitea IAM mode)
+  template:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /etc/oauth2-proxy.cfg
+    src: oauth2-proxy-gitea.cfg.j2
+    force: yes
+  when: project_idp_mode == "gitea"
+
+
+# Copy oauth2-proxy-XYZ configuration file (for XYZ IAM mode)
+#
+## Currently only the "gitea" IdP mode is supported
+## Configuration files for further IdP modes may be added here
+## at a later date 
+# - name: Copy oauth2-proxy configuration (for XYZ IAM mode)
+#   template:
+#     mode: 0644
+#     owner: root
+#     group: root
+#     dest: /etc/oauth2-proxy.cfg
+#     src: oauth2-proxy-XYZ.cfg.j2
+#     force: yes
+#   when: project_idp_mode == "XYZ"
+
+
+# Copy oauth2-proxy start script
+#
+- name: Copy oauth2-proxy start script
+  copy:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/start-oauth2-proxy.sh
+    src: start-oauth2-proxy.sh
+    force: yes
+  when: not project_idp_mode == "public"
+
+
+# Copy oauth2-proxy service definition
+#
+- name: Copy oauth2-proxy service definition
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: /lib/systemd/system/oauth2-proxy.service
+    src: oauth2-proxy.service
+    force: yes
+  when: not project_idp_mode == "public"
+
+
+#Enable oauth2-proxy service
+#
+- name: Enable oauth2-proxy service
+  service:
+    name: oauth2-proxy.service
+    enabled: yes
+    state: started
+  when: not project_idp_mode == "public"
