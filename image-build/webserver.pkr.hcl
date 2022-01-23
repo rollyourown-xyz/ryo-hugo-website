@@ -19,6 +19,12 @@ variable "version" {
   type        = string
 }
 
+# Specify the OAuth2-Proxy version to deploy
+variable "oauth2_proxy_version" {
+  description = "Mandatory: The oauth2-proxy version to use in the image build."
+  type        = string
+}
+
 ## Local configuration variables
 ##
 
@@ -43,7 +49,7 @@ locals {
 
   build_inventory_file = "${abspath(path.root)}/playbooks/inventory.yml"
   build_playbook_file  = "${abspath(path.root)}/playbooks/provision-webserver.yml"
-  build_extra_vars     = "host_id=${var.host_id}"
+  build_extra_vars     = "host_id=${var.host_id} oauth2_proxy_version=${var.oauth2_proxy_version}"
 }
 
 ## Computed local variables

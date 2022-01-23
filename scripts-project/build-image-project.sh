@@ -2,6 +2,7 @@
 
 # Default software package versions
 hugo_version="0.92.0"
+oauth2_proxy_version="7.2.1"
 webhook_version="2.8.0"
 
 
@@ -47,8 +48,8 @@ fi
 
 echo ""
 echo "Building hugo-website-webserver image on "$hostname""
-echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"grav_version=$grav_version\" -var \"version=$version\" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl"
-packer build -var "host_id="$hostname"" -var "version="$version"" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl
+echo "Executing command: packer build -var \"host_id="$hostname"\" -var \"oauth2_proxy_version=$oauth2_proxy_version\" -var \"version=$version\" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl"
+packer build -var "host_id="$hostname"" -var "oauth2_proxy_version=$oauth2_proxy_version" -var "version="$version"" "$SCRIPT_DIR"/../image-build/webserver.pkr.hcl
 
 echo ""
 echo "Building hugo-website-provisioner image on "$hostname""
