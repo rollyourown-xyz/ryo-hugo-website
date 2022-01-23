@@ -24,12 +24,12 @@
 # Copy webhook start script
 #
 - name: Copy webhook start script
-  copy:
+  template:
     mode: 0770
     owner: root
     group: root
     dest: /usr/local/bin/start-webhook.sh
-    src: start-webhook.sh
+    src: start-webhook.sh.j2
     force: yes
 
 
