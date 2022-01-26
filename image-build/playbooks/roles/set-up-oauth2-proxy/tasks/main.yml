@@ -23,7 +23,7 @@
 # Generate a random string as oauth2-proxy cookie secret (if not previously generated)
 #
 - name: Generate a random string as oauth2-proxy cookie secret
-  shell: "cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1 | base64"
+  shell: "dd if=/dev/urandom bs=32 count=1 status=none | base64 -w 0 | tr -- '+/' '-_'; echo"
   register: oauth2_proxy_cookie_secret_stdout
   when:
     - not project_idp_mode == "public"
