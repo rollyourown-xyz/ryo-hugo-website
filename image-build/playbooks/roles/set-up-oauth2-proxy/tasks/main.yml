@@ -57,9 +57,9 @@
     - not oauth2_proxy_cookie_secret_file.stat.exists
 
 
-# Copy oauth2-proxy-gitea configuration file (for gitea IAM mode)
+# Copy oauth2-proxy-gitea configuration file (for gitea IdP mode)
 #
-- name: Copy oauth2-proxy configuration (for gitea IAM mode)
+- name: Copy oauth2-proxy configuration (for gitea IdP mode)
   template:
     mode: 0644
     owner: root
@@ -70,12 +70,12 @@
   when: project_idp_mode == "gitea"
 
 
-# Copy oauth2-proxy-XYZ configuration file (for XYZ IAM mode)
+# Copy oauth2-proxy-XYZ configuration file (for XYZ IdP mode)
 #
 ## Currently only the "gitea" IdP mode is supported
 ## Configuration files for further IdP modes may be added here
 ## at a later date 
-# - name: Copy oauth2-proxy configuration (for XYZ IAM mode)
+# - name: Copy oauth2-proxy configuration (for XYZ IdP mode)
 #   template:
 #     mode: 0644
 #     owner: root
