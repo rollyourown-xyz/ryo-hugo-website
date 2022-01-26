@@ -1,39 +1,76 @@
 ## Listening Address Settings
 http_address = "0.0.0.0:80"
-https_address = "0.0.0.0:443"
 
 ## Reverse Proxy Settings
 reverse_proxy = true
 real_client_ip_header = "X-Forwarded-For"
 
-## Provider Settings of Gitea as IdP
+## Provider Settings for Gitea as IdP
 # skip_provider_button = false or true ???
 provider = "github"
-provider_display_name = "rollyourown-xyz"
+provider_display_name = "{{ project_idp_gitea_domain_name }}"
 redirect_url = "https://{{ project_domain_name }}/oauth2/callback"
 login_url = "https://{{ project_idp_gitea_domain_name }}/login/oauth/authorize"
 redeem_url = "https://{{ project_idp_gitea_domain_name }}/login/oauth/access_token"
-validate_url = "https://{{ project_idp_gitea_domain_name }}/api/v1"
+validate_url = "https://{{ project_idp_gitea_domain_name }}/api/v1/user"
 client_id = "{{ project_idp_gitea_client_id }}"
 client_secret = "{{ project_idp_gitea_client_secret }}"
+
+## TEST OIDC Provider Settings for Gitea as IdP
+#provider = "oidc"
+#provider_display_name = "git.rollyourown.xyz"
+#redirect_url = "https://microelectro.de/oauth2/callback"
+#oidc_issuer_url = "https://git.rollyourown.xyz/"
+#skip_oidc_discovery = false
+#login_url = "https://git.rollyourown.xyz/login/oauth/authorize"
+#redeem_url = "https://git.rollyourown.xyz/login/oauth/access_token"
+#oidc_jwks_url = "https://git.rollyourown.xyz/login/oauth/keys"
+#validate_url = "https://git.rollyourown.xyz/login/oauth/userinfo"
+#scope = ""
+#client_id = "{{ project_idp_gitea_client_id }}"
+#client_secret = "{{ project_idp_gitea_client_secret }}"
+
+## TEST Provider Settings for GitHub as IdP
+# skip_provider_button = false or true ???
+{# provider = "github"
+provider_display_name = "GitHub TEST"
+redirect_url = "https://microelectro.de/oauth2/callback"
+login_url = "https://github.com/login/oauth/authorize"
+redeem_url = "https://github.com/login/oauth/access_token"
+validate_url = "https://api.github.com/user"
+client_id = "{{ project_idp_github_client_secret }}"
+client_secret = "{{ project_idp_github_client_secret }}" #}
+
+## TEST Logging
+request_logging = true
+auth_logging = true
+standard_logging = true
+logging_filename = "/tmp/oa2p.log"
+
 
 # Upstream Settings
 upstreams = [
     "http://127.0.0.1:8080/"
 ]
-pass_basic_auth = true
-pass_user_headers = true
-pass_host_header = true
+
 pass_access_token = false
+pass_authorization_header = false
+pass_basic_auth = false
+pass_host_header = false
+pass_user_headers = false
 
 ## Session storage
 session_store_type = "cookie"
 
-## Cookie Settings
+## Cookie Session Storage Settings
 cookie_name = "_oauth2_proxy"
 cookie_secret = "{{ oauth2_proxy_cookie_secret }}"
+#cookie_samesite = ""
+cookie_samesite = "none"
+#cookie_samesite = "lax"
+#cookie_samesite = "strict"
 cookie_secure = true
 cookie_httponly = true
-# cookie_domains = ""
-# cookie_expire = "168h"
-# cookie_refresh = ""
+cookie_domains = ""
+cookie_expire = "6h"
+cookie_refresh = 0
