@@ -2,7 +2,7 @@
 
 # Copy iptables rules script (for public IdP mode)
 #
-- name: Copy firewall rules script
+- name: Copy firewall rules script (for public IdP mode)
   copy:
     mode: 0770
     owner: root
@@ -15,7 +15,7 @@
 
 # Copy iptables rules script (for gitea IdP mode)
 #
-- name: Copy firewall rules script
+- name: Copy firewall rules script (for gitea IdP mode)
   copy:
     mode: 0770
     owner: root
