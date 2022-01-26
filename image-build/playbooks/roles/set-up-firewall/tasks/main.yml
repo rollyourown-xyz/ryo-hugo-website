@@ -1,6 +1,6 @@
 ---
 
-# Copy iptables rules script (making executable)
+# Copy iptables rules script (for public IdP mode)
 #
 - name: Copy firewall rules script
   copy:
@@ -8,8 +8,22 @@
     owner: root
     group: root
     dest: /usr/local/bin/iptables-rules.sh
-    src: iptables-rules.sh
+    src: iptables-rules-public.sh
     force: yes
+  when: project_idp_mode == "public"
+
+
+# Copy iptables rules script (for gitea IdP mode)
+#
+- name: Copy firewall rules script
+  copy:
+    mode: 0770
+    owner: root
+    group: root
+    dest: /usr/local/bin/iptables-rules.sh
+    src: iptables-rules-gitea.sh
+    force: yes
+  when: project_idp_mode == "gitea"
 
 
 # Copy firewall service definition

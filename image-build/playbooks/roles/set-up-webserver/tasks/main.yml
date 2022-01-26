@@ -89,13 +89,27 @@
     state: absent
 
 
-# Copy hugo-website-webserver-service consul service configuration file
+# Copy hugo-website-webserver-service consul service configuration file (for public IdP mode)
 #
-- name: Copy hugo-website-webserver-service consul service configuration file
+- name: Copy hugo-website-webserver-service consul service configuration file (for public IdP mode)
   copy:
     mode: 0640
     owner: consul
     group: consul
     dest: /etc/consul.d/hugo-website-webserver-services.hcl
-    src: hugo-website-webserver-services.hcl
+    src: hugo-website-webserver-services-public.hcl
     force: yes
+  when: project_idp_mode == "public"
+
+
+# Copy hugo-website-webserver-service consul service configuration file (for gitea IdP mode)
+#
+- name: Copy hugo-website-webserver-service consul service configuration file (for gitea IdP mode)
+  copy:
+    mode: 0640
+    owner: consul
+    group: consul
+    dest: /etc/consul.d/hugo-website-webserver-services.hcl
+    src: hugo-website-webserver-services-gitea.hcl
+    force: yes
+  when: project_idp_mode == "gitea"
