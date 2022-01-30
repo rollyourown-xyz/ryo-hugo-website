@@ -55,8 +55,7 @@ project_theme_repository: github.com/theNewDynamic/gohugo-theme-ananke
 # file at the toplevel of the content repository to match this setting
 project_hugo_theme_name: ananke
 
-# Set the branches to use for the scaffold, content and theme repositories
-# !!! Only change these settings if you have specific needs to use a different branch to the default
+# Set the repository branches to use for the scaffold, content and theme repositories
 project_hugo_content_repository_branch: main
 project_hugo_scaffold_repository_branch: main
 project_hugo_theme_repository_branch: master
