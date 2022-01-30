@@ -68,7 +68,7 @@ module "deploy-hugo-website-webserver-ingress-proxy-acl-configuration" {
   depends_on = [ module.deploy-hugo-website-webserver-ingress-proxy-backend-service ]
 
   ingress-proxy_host_only_acls = {
-    domain     = {host = local.project_domain_name}
+    join("-", [ local.project_id, "domain" ]) = {host = local.project_domain_name}
   }
 }
 
@@ -78,6 +78,6 @@ module "deploy-hugo-website-webserver-ingress-proxy-backend-configuration" {
   depends_on = [ module.deploy-hugo-website-webserver-ingress-proxy-backend-service ]
 
   ingress-proxy_acl_use-backends = {
-    domain     = {backend_service = join("-", [ local.project_id, "webserver" ])}
+    join("-", [ local.project_id, "domain" ]) = {backend_service = join("-", [ local.project_id, "webserver" ])}
   }
 }
