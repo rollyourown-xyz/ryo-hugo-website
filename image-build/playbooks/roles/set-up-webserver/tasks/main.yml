@@ -92,12 +92,12 @@
 # Copy hugo-website-webserver-service consul service configuration file (for public IdP mode)
 #
 - name: Copy hugo-website-webserver-service consul service configuration file (for public IdP mode)
-  copy:
+  template:
     mode: 0640
     owner: consul
     group: consul
     dest: /etc/consul.d/hugo-website-webserver-services.hcl
-    src: hugo-website-webserver-services-public.hcl
+    src: hugo-website-webserver-services-public.hcl.j2
     force: yes
   when: project_idp_mode == "public"
 
@@ -105,11 +105,11 @@
 # Copy hugo-website-webserver-service consul service configuration file (for gitea IdP mode)
 #
 - name: Copy hugo-website-webserver-service consul service configuration file (for gitea IdP mode)
-  copy:
+  template:
     mode: 0640
     owner: consul
     group: consul
     dest: /etc/consul.d/hugo-website-webserver-services.hcl
-    src: hugo-website-webserver-services-gitea.hcl
+    src: hugo-website-webserver-services-gitea.hcl.j2
     force: yes
   when: project_idp_mode == "gitea"

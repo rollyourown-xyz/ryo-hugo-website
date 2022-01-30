@@ -15,7 +15,8 @@ module "deploy-hugo-website-webserver-cert-domains" {
 
 resource "lxd_container" "hugo-website-webserver" {
   remote     = var.host_id
-  name       = "hugo-website-webserver"
+
+  name       = join("-", [ local.project_id, "webserver" ])
   image      = join("-", [ local.project_id, "hugo-website-webserver", var.image_version ])
   profiles   = ["default"]
   
@@ -58,7 +59,7 @@ module "deploy-hugo-website-webserver-ingress-proxy-backend-service" {
   
   depends_on = [ lxd_container.hugo-website-webserver ]
   
-  non_ssl_backend_services = [ "hugo-website-webserver" ]
+  non_ssl_backend_services = [ join("-", [ local.project_id, "webserver" ]) ]
 }
 
 module "deploy-hugo-website-webserver-ingress-proxy-acl-configuration" {
@@ -77,6 +78,6 @@ module "deploy-hugo-website-webserver-ingress-proxy-backend-configuration" {
   depends_on = [ module.deploy-hugo-website-webserver-ingress-proxy-backend-service ]
 
   ingress-proxy_acl_use-backends = {
-    domain     = {backend_service = "hugo-website-webserver"}
+    domain     = {backend_service = join("-", [ local.project_id, "webserver" ])}
   }
 }

@@ -63,10 +63,10 @@
 # Copy hugo-website-provisioner-services consul service configuration file
 #
 - name: Copy hugo-website-provisioner-services consul service configuration file
-  copy:
+  template:
     mode: 0640
     owner: consul
     group: consul
     dest: /etc/consul.d/hugo-website-provisioner-services.hcl
-    src: hugo-website-provisioner-services.hcl
+    src: hugo-website-provisioner-services.hcl.j2
     force: yes

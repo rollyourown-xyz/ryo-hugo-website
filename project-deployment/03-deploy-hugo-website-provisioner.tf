@@ -3,7 +3,7 @@
 
 resource "lxd_container" "hugo-website-provisioner" {
   remote     = var.host_id
-  name       = "hugo-website-provisioner"
+  name       = join("-", [ local.project_id, "provisioner" ])
   image      = join("-", [ local.project_id, "hugo-website-provisioner", var.image_version ])
   profiles   = ["default"]
   
@@ -54,7 +54,7 @@ module "deploy-hugo-website-provisioner-cert-domains" {
 
 module "deploy-hugo-website-provisioner-ingress-proxy-backend-service" {
   source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-backend-services"
-  non_ssl_backend_services = [ "hugo-website-provisioner" ]
+  non_ssl_backend_services = [ join("-", [ local.project_id, "provisioner" ]) ]
 }
 
 module "deploy-hugo-website-provisioner-ingress-proxy-acl-configuration" {
@@ -73,6 +73,6 @@ module "deploy-hugo-website-provisioner-ingress-proxy-backend-configuration" {
   depends_on = [ module.deploy-hugo-website-provisioner-ingress-proxy-backend-service ]
 
   ingress-proxy_acl_use-backends = {
-    domain-hooks = {backend_service = "hugo-website-provisioner"}
+    domain-hooks = {backend_service = join("-", [ local.project_id, "provisioner" ])}
   }
 }
