@@ -36,8 +36,8 @@ $IPT -A INPUT -p udp -m udp --dport 8301 -j ACCEPT
 $IPT -A INPUT -p tcp -m tcp --dport 8301 -j ACCEPT
 
 
-## webserver and website-provisioner rules
-##########################################
+## webserver rules
+##################
 
-# Allow HTTP
-$IPT -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+# Allow HTTP to OAuth2-Proxy
+$IPT -A INPUT -p tcp -m tcp --dport 4180 -j ACCEPT

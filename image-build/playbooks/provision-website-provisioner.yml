@@ -19,7 +19,7 @@
     - role: install-nginx
     - role: install-webhook
     - role: install-hugo
-    - role: set-up-firewall
+    - role: set-up-firewall-provisioner
     - role: set-up-consul
     - role: set-up-website-provisioner
     - role: set-up-webhook
