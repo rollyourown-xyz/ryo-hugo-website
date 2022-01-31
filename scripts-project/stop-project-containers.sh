@@ -37,16 +37,21 @@ then
   errorMessage
 fi
 
-Stop project containers
+# Get Project ID from configuration file
+PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/../configuration/configuration_"$hostname".yml)"
+
+
+# Stop project containers
+#########################
 
 echo ""
 echo "Stopping project container..."
 
-echo "...stopping hugo-website-webserver container"
-lxc stop "$hostname":hugo-website-webserver
+echo "...stopping "$PROJECT_ID"-webserver container"
+lxc stop "$hostname":"$PROJECT_ID"-webserver
 echo ""
-echo "...stopping hugo-website-provisioner container"
-lxc stop "$hostname":hugo-website-provisioner
+echo "...stopping "$PROJECT_ID"-provisioner container"
+lxc stop "$hostname":"$PROJECT_ID"-provisioner
 echo ""
 
 echo "Project container started"

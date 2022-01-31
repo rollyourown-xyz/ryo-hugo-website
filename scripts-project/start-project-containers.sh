@@ -37,16 +37,21 @@ then
   errorMessage
 fi
 
-Start project containers
+# Get Project ID from configuration file
+PROJECT_ID="$(yq eval '.project_id' "$SCRIPT_DIR"/../configuration/configuration_"$hostname".yml)"
+
+
+# Start project containers
+##########################
 
 echo ""
 echo "Starting project container..."
 
-echo "...starting hugo-website-webserver container"
-lxc start "$hostname":hugo-website-webserver
+echo "...starting "$PROJECT_ID"-webserver container"
+lxc start "$hostname":"$PROJECT_ID"-webserver
 echo ""
-echo "...starting hugo-website-provisioner container"
-lxc start "$hostname":hugo-website-provisioner
+echo "...starting "$PROJECT_ID"-provisioner container"
+lxc start "$hostname":"$PROJECT_ID"-provisioner
 echo ""
 
 echo "Project container started"
