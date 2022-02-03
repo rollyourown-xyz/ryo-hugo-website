@@ -10,7 +10,8 @@
 #----------------------
 
 # The project ID must be 15 characters or less and should be unique amongst
-# projects
+# projects. If this is changed, then the project directory name also needs to be 
+# changed, e.g. via 'mv ryo-hugo-website <NEW_NAME>'
 project_id: ryo-hugo-website
 
 # Set the domain to be used for the project. This will be the address under which
