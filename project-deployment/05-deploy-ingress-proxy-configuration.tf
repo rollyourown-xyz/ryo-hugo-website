@@ -12,7 +12,7 @@ module "deploy-hugo-website-ingress-proxy-backend-services" {
   ]
 }
 
-module "deploy-hugo-website-ingress-proxy-configuration" {
+module "deploy-hugo-website-ingress-proxy-acl-configuration" {
   source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-configuration"
 
   depends_on = [ module.deploy-hugo-website-ingress-proxy-backend-services ]
@@ -21,6 +21,12 @@ module "deploy-hugo-website-ingress-proxy-configuration" {
     join("-", [ local.project_id, "domain" ]) = {host = local.project_domain_name},
     join("-", [ local.project_id, "domain-hooks" ]) = {host = local.project_hooks_domain_name}
   }
+}
+
+module "deploy-hugo-website-ingress-proxy-use-backendconfiguration" {
+  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-configuration"
+
+  depends_on = [ module.deploy-hugo-website-ingress-proxy-backend-services, module.deploy-hugo-website-ingress-proxy-acl-configuration ]
 
   ingress-proxy_acl_use-backends = {
     join("-", [ local.project_id, "domain" ]) = {backend_service = join("-", [ local.project_id, "webserver" ])},
