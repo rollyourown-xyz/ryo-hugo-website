@@ -16,7 +16,6 @@
     - role: install-consul
     - role: install-git
     - role: install-rsync
-    - role: install-nginx
     - role: install-webhook
     - role: install-hugo
     - role: set-up-firewall-provisioner
