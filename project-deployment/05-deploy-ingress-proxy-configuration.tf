@@ -4,7 +4,7 @@
 module "deploy-hugo-website-ingress-proxy-backend-services" {
   source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-backend-services"
   
-  depends_on = [ lxd_container.hugo-website-webserver, lxd.container.hugo-website-provisioner ]
+  depends_on = [ lxd_container.hugo-website-webserver, lxd_container.hugo-website-provisioner ]
   
   non_ssl_backend_services = [
     join("-", [ local.project_id, "webserver" ]),
