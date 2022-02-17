@@ -1,6 +1,6 @@
 # Roll Your Own Hugo Website
 
-Deploy a [Hugo](https://gohugo.io/) static website using Ansible, Packer and Terraform.
+This is a [rollyourown.xyz project](https://rollyourown.xyz/rollyourown/projects/) to deploy a [Hugo](https://gohugo.io/) static website using Ansible, Packer and Terraform.
 
 ## Project Summary
 
