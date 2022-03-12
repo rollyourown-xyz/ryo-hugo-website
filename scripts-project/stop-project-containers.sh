@@ -57,5 +57,5 @@ echo "...stopping "$PROJECT_ID"-provisioner container"
 lxc stop "$hostname":"$PROJECT_ID"-provisioner
 echo ""
 
-echo "Project container started"
+echo "Project containers stopped"
 echo ""

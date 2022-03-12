@@ -57,5 +57,5 @@ echo "...starting "$PROJECT_ID"-provisioner container"
 lxc start "$hostname":"$PROJECT_ID"-provisioner
 echo ""
 
-echo "Project container started"
+echo "Project containers started"
 echo ""
