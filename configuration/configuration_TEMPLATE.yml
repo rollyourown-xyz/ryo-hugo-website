@@ -21,11 +21,12 @@ project_id: ryo-hugo-website
 # your hugo website will be reachable -- E.g. example.com or blog.example.com
 # The DNS A record for the project's domain must be set to point to the public
 # IPv4 address of your host server
+# A redirect from www.project_domain_name to project_domain_name will be configured also
 project_domain_name: <DOMAIN>
 
 # Set the domain to be used for the webhooks to trigger your Hugo website to
 # pull content from your Git repository server (after updates) -- E.g. hooks.example.com
-# This should be different to the project domain name
+# This should be different to the project domain name and should **not** be www.example.com
 # The DNS A record for this hooks domain must be set to point to the public
 # IPv4 address of your host server
 project_hooks_domain_name: <SUBDOMAIN>.<DOMAIN>

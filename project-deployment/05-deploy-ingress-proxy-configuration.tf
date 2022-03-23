@@ -22,7 +22,18 @@ module "deploy-hugo-website-ingress-proxy-acl-configuration" {
 
   ingress-proxy_host_only_acls = {
     join("-", [ local.project_id, "domain" ]) = {host = local.project_domain_name},
+    join("-", [ local.project_id, "www-domain" ]) = {host = join(".", ["www", local.project_domain_name])},
     join("-", [ local.project_id, "domain-hooks" ]) = {host = local.project_hooks_domain_name}
+  }
+}
+
+module "deploy-hugo-website-ingress-proxy-www-redirect" {
+  source = "../../ryo-ingress-proxy/module-deployment/modules/deploy-ingress-proxy-configuration"
+  
+  depends_on = [ module.deploy-hugo-website-ingress-proxy-acl-configuration ]
+
+  ingress-proxy_acl_redirects = {
+    join("-", [ local.project_id, "www-domain" ]) = {prefix = join("", ["https://", local.project_domain_name])}
   }
 }
 
