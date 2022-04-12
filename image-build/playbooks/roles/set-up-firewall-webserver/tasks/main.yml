@@ -3,48 +3,27 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-# Copy iptables rules script (for public IdP mode)
+# Copy nftables configuration (for public IdP mode)
 #
-- name: Copy firewall rules script (for public IdP mode)
+- name: Copy nftables configuration (for public IdP mode)
   copy:
     mode: 0770
     owner: root
     group: root
-    dest: /usr/local/bin/iptables-rules.sh
-    src: iptables-rules-public.sh
+    dest: /etc/nftables.conf
+    src: nftables-public.conf
     force: yes
   when: project_idp_mode == "public"
 
 
-# Copy iptables rules script (for gitea IdP mode)
+# Copy nftables configuration (for gitea IdP mode)
 #
-- name: Copy firewall rules script (for gitea IdP mode)
+- name: Copy nftables configuration (for gitea IdP mode)
   copy:
     mode: 0770
     owner: root
     group: root
-    dest: /usr/local/bin/iptables-rules.sh
-    src: iptables-rules-gitea.sh
+    dest: /etc/nftables.conf
+    src: nftables-gitea.conf
     force: yes
   when: project_idp_mode == "gitea"
-
-
-# Copy firewall service definition
-#
-- name: Copy firewall service definition
-  copy:
-    mode: 0644
-    owner: root
-    group: root
-    dest: /lib/systemd/system/iptables-rules.service
-    src: iptables-rules.service
-    force: yes
-
-
-# Enable iptables rules service
-#
-- name: Enable firewall service
-  service:
-    name: iptables-rules.service
-    enabled: yes
-    state: started
