@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: CC-BY-SA-4.0
 
 server {
+    listen [::]:80;
     listen 80;
 
     root /var/www/site;
