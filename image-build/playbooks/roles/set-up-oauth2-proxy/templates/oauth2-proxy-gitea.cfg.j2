@@ -2,7 +2,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 ## Listening Address Settings
-http_address = "0.0.0.0:4180"
+{% if host_public_ipv6 == true %}http_address = "[::]:4180"
+{% else %}http_address = "0.0.0.0:4180"
+{% endif %}
+
 
 ## Reverse Proxy Settings
 reverse_proxy = true
@@ -20,7 +23,7 @@ client_secret = "{{ project_idp_gitea_client_secret }}"
 
 # Upstream Settings
 upstreams = [
-    "http://127.0.0.1/"
+    "http://[::1]:80/"
 ]
 
 pass_access_token = false

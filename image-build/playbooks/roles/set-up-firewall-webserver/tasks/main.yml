@@ -6,12 +6,12 @@
 # Copy nftables configuration (for public IdP mode)
 #
 - name: Copy nftables configuration (for public IdP mode)
-  copy:
+  template:
     mode: 0770
     owner: root
     group: root
     dest: /etc/nftables.conf
-    src: nftables-public.conf
+    src: nftables-public.conf.j2
     force: yes
   when: project_idp_mode == "public"
 
@@ -19,11 +19,11 @@
 # Copy nftables configuration (for gitea IdP mode)
 #
 - name: Copy nftables configuration (for gitea IdP mode)
-  copy:
+  template:
     mode: 0770
     owner: root
     group: root
     dest: /etc/nftables.conf
-    src: nftables-gitea.conf
+    src: nftables-gitea.conf.j2
     force: yes
   when: project_idp_mode == "gitea"
