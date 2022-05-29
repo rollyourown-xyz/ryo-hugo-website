@@ -5,7 +5,7 @@
 
 # Default software package versions
 hugo_version="0.99.1"
-oauth2_proxy_version="7.2.1"
+oauth2_proxy_version="7.3.0"
 webhook_version="2.8.0"
 
 
