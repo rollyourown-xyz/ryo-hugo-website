@@ -4,8 +4,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # Default software package versions
-hugo_version="0.104.0"
-oauth2_proxy_version="7.3.0"
+hugo_version="0.110.0"
+oauth2_proxy_version="7.4.0"
 webhook_version="2.8.0"
 
 
